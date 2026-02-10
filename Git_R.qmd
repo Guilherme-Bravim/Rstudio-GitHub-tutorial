@@ -1,0 +1,453 @@
+---
+title: "Integração Git - R"
+author:
+  - name: Dr. Guilherme Bravim
+    orcid: 0000-0002-2691-1270
+    email: guilherme.canal@ufv.br
+    url: http://lattes.cnpq.br/4198805824878291
+    affiliation:
+      - name: Departamento de Biologia Geral, Universidade Federal de Viçosa (DBG/UFV)
+        id: dbg
+        url: https://dbg.ufv.br/
+        city: Viçosa
+        region: Minas Gerais
+        country: Brazil
+      - name: Institute of Computational and Artificial Intelligence (IDATA)
+        id: idata
+        url: https://idata.ufv.br/
+        city: Viçosa
+        region: Minas Gerais
+        country: Brazil
+  - name: Prof. Dr. Kaio Olimpio das Graças Dias
+    orcid: 
+    email: kaio.o.dias@ufv.br 
+    url:  http://lattes.cnpq.br/7079781475856604
+    affiliation:
+      - name: Departamento de Biologia Geral, Universidade Federal de Viçosa (DBG/UFV)
+        id: dbg
+        url: https://dbg.ufv.br/
+        city: Viçosa
+        region: Minas Gerais
+        country: Brazil
+      - name: Institute of Computational and Artificial Intelligence (IDATA)
+        id: idata
+        url: https://idata.ufv.br/
+        city: Viçosa
+        region: Minas Gerais
+        country: Brazil
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    toc-title: Seções
+    toc-location: left
+    toc_float: true
+    number-sections: true
+    number-depth: 4
+    theme: 
+      light: journal
+      dark: darkly
+    embed-resources: true
+    self-contained: true
+    anchor-sections: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Code"
+    code-overflow: wrap
+    code-block-border-left: "#781c1e"
+    code-copy: hover
+ #   code-tools: true
+    lang: pt
+    fig-format: svg
+    fig-responsive: true
+    fig-cap-location: bottom
+    tbl-cap-location: top
+    page-layout: article
+#    bibliography: ref.bib
+    csl: apa.csl
+    css: styles.css
+    title-block-banner: true
+    title-block-banner-color: 'white'
+    highlight-style: github
+editor_options: 
+  chunk_output_type: console
+abstract: |
+---
+
+<img src="C:\Users\T.i\Desktop\arquivos\Raiz\notebook\guilherme I\UFV\POS_DOC_genetica\QGSL\imagens\01_logo\Lab_UFV_semfundo.png" id="logo-flutuante">
+
+
+------------------------------------------------------------------------
+
+Para ter acesso a outros documentos semelhantes a este, visite nosso [site](https://www.ufv.br/localizacao/).
+
+
+# Introdução
+
+
+# Requisitos
+
+
+# Instalação do Git
+
+## Download do Git
+
+Antes de prosseguir com as próximas etapas, é importante garantir que o Git esteja corretamente instalado em seu computador.
+
+A instalação é simples e rápida. Para isso, acesse a [página oficial do Git](https://git-scm.com/install/windows), onde estão disponíveis as versões mais recentes do programa para diferentes sistemas operacionais. Basta fazer o download do instalador correspondente ao seu sistema e seguir as instruções apresentadas na tela.
+
+Para acessar a página de download do Git, visite o site oficial:
+[https://git-scm.com/about](https://git-scm.com/about)
+
+Após acessar o site oficial, você encontrará, na lateral esquerda da página, um conjunto de abas que apresentam informações detalhadas sobre a ferramenta. Para realizar o download do Git, selecione a aba “Install”, destacada pela seta laranja na @fig-git-install.
+
+Em seguida, será necessário escolher o sistema operacional, conforme indicado pelas setas verdes na @fig-git-install. Essa escolha pode variar entre usuários e deve ser feita de acordo com o sistema operacional instalado em sua máquina.
+
+Após selecionar a opção correspondente, basta clicar no botão de download disponibilizado pelo próprio site para obter, de forma gratuita, o instalador do programa.
+
+
+```{r fig-git-install, fig.align="center", echo=FALSE, fig.cap= "Página oficial de instalação do Git"}
+knitr::include_graphics("imagens/01_git.png")
+```
+
+Após a conclusão do download, basta localizar o instalador em sua pasta **Downloads** e clicar sobre o arquivo para iniciar o processo de instalação. Esse procedimento é simples e intuitivo, sendo necessário apenas seguir as etapas sistemáticas apresentadas pelo próprio instalador.
+
+Após a instalação, o Git já estará pronto para uso, e você poderá continuar com as próximas configurações conforme indicado nas seções seguintes.
+
+## Conexão Git e RStudio
+
+Após a instalação do Git, é importante verificar se o RStudio consegue localizar corretamente o executável do programa. Para verificar se o Git foi reconhecido pelo RStudio siga as seguintes recomendações apresentadas na @fig-git-validation:
+
+1. **Abra o RStudio e acesse o menu Tools**;
+
+2. **Acesse a opção "Global Options"**: Após clicar nessa opção, uma aba de configurações será aberta automaticamente. Nela, devemos localizar, no canto esquerdo, a opção “Git/SVN”.
+
+3. **Clique na opção Git/SVN**: Nessa tela, devemos observar se o campo **Git executable** apresenta o caminho ate o executavel do Git (git.exe). Caso ele esteja vazio ou apresente um caminho inválido, significa que o RStudio não conseguiu localizar o Git no sistema.
+
+
+```{r fig-git-validation, fig.align="center", echo=FALSE, fig.cap= "Passo a Passo para verificação da conexão Git e RStudio."}
+knitr::include_graphics("imagens/02_git_validation.png")
+```
+
+
+Outra alternativa que se pode fazer é verificar a instação diretamente pelo R. Para isto, basta apenas executar o seguinte comando no console do R:
+
+```{r, echo=TRUE, eval=FALSE}
+Sys.which("git")
+```
+
+
+::: {.callout-warning collapse="true"}
+# Possíveis problemas e solução
+
+Em alguns casos, mesmo com o Git instalado, o caminho para o arquivo executável (git.exe) pode não ser identificado automaticamente. A seguir, são apresentadas as etapas recomendadas para resolver esse problema.
+
+
+**Alternativa 1: Reiniciar o RStudio**
+Se o Git foi instalado enquanto o RStudio estava aberto, feche completamente o RStudio e abra-o novamente. Em muitos casos, essa simples ação é suficiente para que o programa reconheça automaticamente o executável do Git.
+
+
+**Alternativa 2: Definir manualmente o caminho do executável**
+Caso o Git ainda não seja reconhecido, clique no botão "Browse…" ao lado do campo Git executable e localize manualmente o arquivo git.exe. Após selecionar o arquivo, confirme a alteração e reinicie o RStudio.
+
+
+**Alternativa 3: Verificar se o Git foi adicionado ao PATH do sistema**
+
+Se o executável não estiver acessível nos caminhos padrão, é possível que o Git não tenha sido adicionado corretamente à variável de ambiente PATH durante a instalação. Nesse caso, recomenda-se reinstalar o Git. Portanto, na reinstalação, coloque-o na pasta "Programa Files", como:
+* C:\Program Files\Git\bin;
+* C:\Program Files\Git\cmd.
+
+:::
+
+## Git Bash
+
+### O que é o Git Bash?
+
+O **Git Bash** é um terminal que permite executar comandos Git em um ambiente semelhante ao Linux. Ele é útil para atividades como: executar comandos Git manualmente, aprender e praticar Git via linha de comando e realizar operações avançadas que não estão disponíveis na interface gráfica.
+
+### Relevância
+
+A integração entre o Git e o RStudio não demanda necessáriamente da instalação em separado do Git Bash. Principalmente para o sistema operacional do Winsdows, uma vez que, ao instalar o Git do site oficial, o Git Bash já vem incluído automaticamente. Porém, o Git Bash pode ser útil em situações especificas para resolução de conflitos mais complexas, execução de comandos avançados e aprendizado dos fundamentos do Git via terminal. 
+
+Portanto, a instalação do Git Bash é opcional. Entretanto, recomendamos sua instalação devido sua utilidade, podendo ser feio pelo download do git no [site oficial](https://git-scm.com/install/windows) e marcando a opção "Windows Explorer integration" (@fig-git-bash A), garantindo desta forma, abrir o prompt de comandos do Git Bash em qualquer pasta, bastando apenas clicar com o botao direto e escolher a opção "Open Git Bash here" (@fig-git-bash B).
+
+
+```{r fig-git-bash, fig.align="center", echo=FALSE, fig.cap= "Instalação e validação do Git Bash."}
+knitr::include_graphics("imagens/03_git_bash.png")
+```
+
+Caso a opção “Windows Explorer integration” não seja exibida durante o processo de instalação no Windows, a verificação da instalação do Git ainda pode ser realizada de forma simples. Para isso, siga o procedimento descrito anteriormente: clique com o botão direito do mouse sobre qualquer pasta e verifique se a opção “Open Git Bash here” está disponível no menu de contexto.
+
+A presença dessa opção indica que o Git foi instalado corretamente e que o Git Bash está funcional no sistema.
+
+Podemos ainda, abrir o terminal da maquina e digitar "git" e apertar enter. Caso apareçam os camandos do Git utilizados em várias situações, o programa foi instalado corretamente. Ainda no terminal, podemos verificar a vesão do programa digitando "git -v" e apertar enter.
+
+
+# Criação de conta no GitHub
+
+O **GitHub** é uma plataforma online que complementa o uso do Git, permitindo armazenar, versionar e compartilhar projetos de forma remota. Quando utilizado em conjunto com o Git e o RStudio, o GitHub se torna uma ferramenta essencial para o desenvolvimento de projetos reprodutíveis, organização do histórico de alterações e colaboração entre pesquisadores e equipes de trabalho.
+
+A integração entre Git, GitHub e RStudio possibilita que todas as modificações realizadas nos arquivos de um projeto sejam registradas, documentadas e sincronizadas automaticamente com um repositório online, garantindo maior segurança, rastreabilidade e facilidade de colaboração.
+
+## Passo a passo para criação de conta
+
+1. **Acesse o [site oficial do GitHub](https://github.com/signup)**;
+
+2. **Clique na opção *Sign up* para inicia o processo de registro e criação de conta**;
+
+3. **Preencha com seus dados, as informações solicitadas**: Observação: O nome de usuário será utilizado para identificar seus repositórios e poderá ser visualizado por outros usuários da plataforma. Portanto, recomendamos um nome adotado em contexto profissional;
+
+4. **Após o preenchimento, siga as instruções apresentadas pelo site para validação da conta**;
+
+5. **Confirmar o endereço de e-mail**: Observação: Após a finalização do cadastro, o GitHub enviará um e-mail de confirmação. Acesse sua caixa de entrada e clique no link de verificação para ativar a conta.
+
+6. **Acessar o painel inicial do GitHub**: Observação: Com a conta confirmada, realize o login no GitHub. Você será direcionado ao painel inicial, onde será possível visualizar repositórios, projetos e outras funcionalidades da plataforma.
+
+Nesse ambiente, será possível criar novos repositórios, gerenciar projetos existentes e acompanhar atividades associadas à sua conta.
+
+
+# Integração do RStudio com Git e GitHub
+
+A integração entre o RStudio, o sistema de controle de versões Git e a plataforma GitHub consiste na configuração do ambiente de desenvolvimento que permite o versionamento, o armazenamento e a sincronização de projetos de forma segura e organizada. Esse processo envolve a identificação do usuário no Git, a autenticação com o GitHub por meio de um token de acesso e a vinculação do projeto a um repositório remoto.
+
+De forma análoga ao login em uma rede social, o token de acesso atua como uma credencial de autenticação: ele substitui a senha tradicional e permite que o RStudio seja autorizado a se comunicar com o GitHub. Essa autenticação é realizada uma única vez e, após validada, permanece ativa, dispensando novas credenciais a cada atualização do projeto.
+
+A importância dessa integração está na possibilidade de registrar o histórico de alterações do código, garantir a reprodutibilidade das análises, facilitar o trabalho colaborativo e reduzir o risco de perda de informações. Além disso, o uso do GitHub como repositório remoto possibilita o acesso aos projetos a partir de diferentes máquinas, promovendo maior controle, transparência e organização no desenvolvimento de análises computacionais.
+
+## Passo a passo da integração entre as ferramentas {#integracao-git}
+
+1. **Instalação de pacote**: Primeiro precisamos instalar o pacote "usethis". Pois, ele fornece um processo facilitado para vincular o RStudio ao GitHub.
+
+```{r,echo=TRUE, eval=FALSE}
+
+install.packages("usethis")
+```
+
+2. **Configurando as credencias de acesso**: Essas credenciais correspondem ao e-mail e ao nome registrados no GitHub. De forma análoga, elas funcionam como as informações de login utilizadas em qualquer plataforma online pessoal.
+
+```{r,echo=TRUE, eval=FALSE}
+
+usethis::use_git_config(user.name= "Insira aqui seu nome de usuário", user.email= Insira aqui seu e-mail)
+```
+
+3. **Obtendo o código token**: Seguindo a mesma analogia anterior, o token é nossa senha gerada pelo GitHub.
+
+3.1. Para obter o **token** precisamos inicialmente executar o seguinte comando:
+
+```{r,echo=TRUE, eval=FALSE}
+usethis::create_github_token()
+```
+
+3.2. Após a execução deste comando, uma janela do seu navegador padrão será aberta automaticamente para que você realize o login em sua conta do GitHub para obtenção do **token** (@fig-git-hub1).
+
+```{r fig-git-hub1, fig.align="center", echo=FALSE, fig.cap= "Página de acesso a sua conta no GitHub."}
+knitr::include_graphics("imagens/04_git_hub_acesso.png")
+```
+
+3.3. Ao acessar o GitHub, o usuário será direcionado para uma página de configuração do token. Nessa etapa, é solicitada a definição de uma nota para identificação, a determinação do período de expiração do código e a seleção de algumas opções de permissões. Dentre essas opções, as mais importantes já se encontram previamente definidas. Portanto, recomenda-se manter a estrutura padrão (@fig-github2).
+
+Por fim, ao final da página, deve-se clicar em “Generate token” (@fig-github2).
+
+```{r fig-github2, fig.align="center", echo=FALSE, fig.cap= "Página de configuração do token."}
+knitr::include_graphics("imagens/05_git_hub_conf.png")
+```
+
+3.4. Ao final do processo, o token é gerado, sendo necessário apenas copiá-lo (@fig-token) e colá-lo na função do pacote usethis.
+
+```{r fig-token, fig.align="center", echo=FALSE, fig.cap= "Token GitHub."}
+knitr::include_graphics("imagens/06_token.png")
+```
+
+```{r, echo=TRUE, eval=FALSE}
+gitcreds::gitcreds_set()
+
+?Enter password or token: AbCdEfGhIjKlMnOpQrStUvXzAbCdEfGhIjKlMnOpQrStUvXz
+```
+
+Ao finalizar as etapas descritas anteriormente, o Rstudio, o Git e o GitHub estarão integrados e prontos para uso.
+
+É importante mencionar que, é esperado que este processo seja realizado somente uma vez. Porém, em determinadas situação será necessário que a etapa anterior se realizada novamente, isso acontece em casos como: 
+
+1. **Expiração do token**;
+
+2. **Deleção do token**;
+
+3. **Formatação ou troca do computador**;
+
+4. **Deleção das credencias**;
+
+5. **Reinstalação do sistema**.
+
+
+# Criando repositório no GitHub e integrando ao RStudio
+
+Um repositório no GitHub é um espaço de armazenamento que reúne todos os arquivos, códigos e o histórico de alterações de um projeto. Ele permite o versionamento, a organização e o compartilhamento do projeto em desenvolvimento, facilitando a colaboração entre usuários e o controle das modificações realizadas ao longo do tempo.
+
+## Criação interativa de repositórios no GitHub
+
+Para criar um repositório no GitHub, siga os seguintes passos descrito abaixo e ilustrado na @fig-repositorio.
+
+1. **Acesse a página "Repositories" em seu GitHub**;
+
+2. **Clique na opção "New" destacada em verde no canto superior direito da página**;
+
+3. **Ao ser redirecionado a uma nova página, determine o nome do do seu repositorio**;
+
+4. **Insira uma descrição (Opcional)**;
+
+5. **Determine se você deseja que o repositório fique público ou privado**;
+
+6. **Por fim, clique na opção "Create repository" para finalizar o processo**.
+
+
+```{r fig-repositorio, fig.align="center", echo=FALSE, fig.cap= "Criação de repositório no GitHub."}
+knitr::include_graphics("imagens/07_Criando_repositorio.png")
+```
+
+## Criando um projeto no RStudio e integrando de forma interativa ao GitHub
+
+Uma das opções mais simples para a criação de projetos no RStudio e sua integração ao GitHub é realizada de forma interativa. No entanto, para esse procedimento, é necessário que o repositório já exista; portanto, é fundamental que a etapa anterior tenha sido concluída.
+
+A seguir, descrevemos o passo a passo para a criação do projeto e sua integração ao GitHub (@fig-projeto):
+
+1. **Clique em file no RStudio**;
+
+2. **Clique em "New Project"**;
+
+3. **Selecione a opção "Version Control" na janela que se abrirá**;
+
+4. **Selecione a opção "Git" na nova janela**;
+
+5. **Copie a URL do seu repositório no GitHub. Para isso, acesse seu GitHub, escolha o repositório que você deseja trabalhar, abra-o e copie a URL que irá aparecer**;
+
+6. **Cole a URL na janela que abriu após a execução do passo 4**;
+
+7. **Selecione a pasta onde o projeto será criado**;
+
+8. **Clique em "Create Project"**.
+
+Observe que, após a conclusão das etapas descritas anteriormente, o nome do projeto passará a ser exibido no cabeçalho do RStudio. Além disso, surgirá uma guia denominada “Git” no painel *Environment* (canto superior direito) e, na interface de *Outputs* (canto inferior direito), aparecerão alguns arquivos que não existiam anteriormente (@fig-projeto, setas verdes). Esses elementos confirmam o sucesso do processo de criação do projeto e sua integração ao Git.
+
+
+```{r fig-projeto, fig.align="center", echo=FALSE, fig.cap= "Criação de projeto no RStudio e integrando ao GitHub."}
+knitr::include_graphics("imagens/08_Criando_projeto.png")
+```
+
+
+## Criação de repositórios no GitHub via comandos  {#Criacao_repo_git}
+
+Uma alternativa ao processo interativo apresentado anteriormente é o uso do pacote "usethis". Esse pacote pode auxiliar na criação de projetos no RStudio e sincronizá-los com o GitHub. Para isso, basta seguir as etapas descritas abaixo:
+
+1. **Criação do projeto**
+
+O primeiro passo consiste na criação de um projeto no RStudio. Para isso, executamos o comando apresentado a seguir. Ao executar o código, uma nova página do RStudio será aberta automaticamente, já no novo projeto.
+
+```{r,echo=TRUE, eval=FALSE}
+usethis::create_project("caminho_para_o_projeto")
+```
+
+Esse procedimento irá criar um novo diretório de trabalho no local especificado pelo caminho inserido no comando apresentado acima. Da mesma forma, um arquivo .Rproj será gerado, e todo o trabalho passará a ser executado em um ambiente isolado e organizado.
+
+
+2. **Inicialização do Git **
+
+Para conseguirmos atingir nosso objetivo de integrar o projeto do RStudio ao GitHub, é fundamental habilitar o controle de versão do Git. Sem a execução dessa etapa, torna-se impossível alcançar o objetivo final. Esse passo é o que permite a geração de um histórico de alterações do projeto.
+
+```{r,echo=TRUE, eval=FALSE}
+usethis::use_git()
+```
+
+Ao executar esse comando, o Git será inicializado, os arquivos do projeto serão automaticamente detectados e o arquivo .gitignore será criado. Em seguida, será exibida uma mensagem solicitando autorização para a realização do primeiro commit e para a inclusão dos documentos no repositório. Nesse momento, deve-se selecionar a opção 1 – “I agree”, confirmando o processo (@fig-usegit).
+
+
+```{r fig-usegit, fig.align="center", echo=FALSE, fig.cap= "Solicitação de autorização para realização do primeiro commit."}
+knitr::include_graphics("imagens/09_usegit.png")
+```
+
+3. **Conexão do projeto ao GitHub**
+
+Como o Git já foi configurado no passo anterior, agora estamos prontos para criar uma cópia do nosso projeto em um repositório online no GitHub. Para isso, execute o comando abaixo:
+
+```{r,echo=TRUE, eval=FALSE}
+usethis::use_github()
+```
+
+Vale ressalta que, se o comando for executado da forma apresentada acima, o repositório será criado no GitHub com o mesmo nome do projeto definido no comando "create_project". Contudo, para definirmos o nome do repósitorio, basta seguirmos o comando abaixo:
+
+```{r, echo=TRUE, eval=FALSE}
+usethis::use_github(repo_name = "nome_do_repositorio")
+```
+
+É importante mencionar que, por padrão, o repositório que será criado será aberto ao público. Porém, isso pode ser alterado utilizando a sintaxe "private = FALSE".
+
+**Observação**:
+
+Para que esse processo funcione corretamente, os passos apresentados em [seção anterior](#integracao-git) precisam estar válidos, tendo sido executados pelo menos uma vez na sua máquina e com o token ativo.
+
+# Vinculando projetos existentes a repositórios do GitHub
+
+## Habilitando o controle de versão do Git
+
+Assim como apresentado no passo 2 do tópico [Criação de repositórios no GitHub via comandos](#Criacao_repo_git), é fundamental habilitarmos o controle de versão do Git, sem este processo, não conseguimos vincular nosso projeto já criado ao GitHub.
+
+### Habilitando via comandos
+
+Para habilitarmos o controle de versão de forma simples e rápida podemos executar o comando abaixo:
+
+```{r,echo=TRUE, eval=FALSE}
+usethis::use_git()
+```
+
+### Habilitando de modo interativo
+
+Para habilitar o controle de alterações manualmente, basta seguir o passo a passo apresenado na @git_interativo.
+
+1. **Abra a opção "tools" na barra de ferramentas**;
+
+2. **Selecione a opção "Version Control**;
+
+3. **Clique na opção "Project Setup..."**;
+
+4. **Uma janela se abrirá automaticamente, abra o drowpdown**;
+
+5. **Selecione a opção "Git" e clique em "ok"**;
+
+6. **Aceite a solicitação de reinicializar o RStudio**.
+
+Após a reinicialização você poderá notar o surgimento da opção "Git" (Seta verde - @fig-git_interativo) no painel *Environment* (canto superior direito). Isto indica o sucesso do processo de habilitação do controle de alterações.
+
+```{r fig-git_interativo, fig.align="center", echo=FALSE, fig.cap= "Habilitação do Git em projetos criados."}
+knitr::include_graphics("imagens/10_git.png")
+```
+
+
+# Commit do projeto 
+
+O commit é o mecanismo responsável por registrar as alterações realizadas nos arquivos do projeto. Ao executar um commit, o Git cria uma nova versão, armazenando o estado atual dos arquivos no histórico do repositório. Esse processo permite acompanhar a evolução do projeto, documentar mudanças e restaurar versões anteriores quando necessário.
+
+Para realizar o commit manualmente, podemos apenas:
+
+1. **Abra a aba "Git" no painel *Environment* **;
+
+2. **Na lista de arquivos, selecione os arquivos que você deseja versionar**;
+
+3. **Clique em "commit"**;
+
+4. **Na janela que se abrir, escreva uma mensagem sucinta**;
+
+5. **Clique em "Commit"**.
+
+
+
+```{r fig-commit, fig.align="center", echo=FALSE, fig.cap= "."}
+knitr::include_graphics("imagens/11_commit.png")
+```
+
+
+
+
+
+
+
+
+
