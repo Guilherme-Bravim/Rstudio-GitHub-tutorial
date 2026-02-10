@@ -421,16 +421,27 @@ knitr::include_graphics("imagens/10_git.png")
 ```
 
 
+# Commit do projeto 
+
+O commit é o mecanismo responsável por registrar as alterações realizadas nos arquivos do projeto. Ao executar um commit, o Git cria uma nova versão, armazenando o estado atual dos arquivos no histórico do repositório. Esse processo permite acompanhar a evolução do projeto, documentar mudanças e restaurar versões anteriores quando necessário.
+
+Para realizar o commit manualmente, podemos apenas:
+
+1. **Abra a aba "Git" no painel *Environment* **;
+
+2. **Na lista de arquivos, selecione os arquivos que você deseja versionar**;
+
+3. **Clique em "commit"**;
+
+4. **Na janela que se abrir, escreva uma mensagem sucinta**;
+
+5. **Clique em "Commit"**.
 
 
 
-
-
-
-
-
-
-
+```{r fig-commit, fig.align="center", echo=FALSE, fig.cap= "."}
+knitr::include_graphics("imagens/11_commit.png")
+```
 
 
 
