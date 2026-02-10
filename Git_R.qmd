@@ -326,7 +326,7 @@ A seguir, descrevemos o passo a passo para a criação do projeto e sua integra�
 
 8. **Clique em "Create Project"**.
 
-Observe que, após a conclusão das etapas descritas anteriormente, o nome do projeto passará a ser exibido no cabeçalho do RStudio. Além disso, surgirá uma guia denominada “Git” no painel Environment (canto superior direito) e, na interface de Outputs (canto inferior direito), aparecerão alguns arquivos que não existiam anteriormente (@fig-projeto, setas verdes). Esses elementos confirmam o sucesso do processo de criação do projeto e sua integração ao Git.
+Observe que, após a conclusão das etapas descritas anteriormente, o nome do projeto passará a ser exibido no cabeçalho do RStudio. Além disso, surgirá uma guia denominada “Git” no painel *Environment* (canto superior direito) e, na interface de *Outputs* (canto inferior direito), aparecerão alguns arquivos que não existiam anteriormente (@fig-projeto, setas verdes). Esses elementos confirmam o sucesso do processo de criação do projeto e sua integração ao Git.
 
 
 ```{r fig-projeto, fig.align="center", echo=FALSE, fig.cap= "Criação de projeto no RStudio e integrando ao GitHub."}
@@ -357,11 +357,11 @@ Para conseguirmos atingir nosso objetivo de integrar o projeto do RStudio ao Git
 usethis::use_git()
 ```
 
-Ao executar esse comando, o Git será inicializado, os arquivos do projeto serão automaticamente detectados e o arquivo .gitignore será criado. Em seguida, será exibida uma mensagem solicitando autorização para a realização do primeiro commit e para a inclusão dos documentos no repositório. Nesse momento, deve-se selecionar a opção 1 – “I agree”, confirmando o processo (@usegit).
+Ao executar esse comando, o Git será inicializado, os arquivos do projeto serão automaticamente detectados e o arquivo .gitignore será criado. Em seguida, será exibida uma mensagem solicitando autorização para a realização do primeiro commit e para a inclusão dos documentos no repositório. Nesse momento, deve-se selecionar a opção 1 – “I agree”, confirmando o processo (@fig-usegit).
 
 
-```{r usegit, fig.align="center", echo=FALSE, fig.cap= "Solicitação de autorização para realização do primeiro commit."}
-knitr::include_graphics("09_usegit.png")
+```{r fig-usegit, fig.align="center", echo=FALSE, fig.cap= "Solicitação de autorização para realização do primeiro commit."}
+knitr::include_graphics("imagens/09_usegit.png")
 ```
 
 3. **Conexão do projeto ao GitHub**
@@ -399,6 +399,36 @@ usethis::use_git()
 ```
 
 ### Habilitando de modo interativo
+
+Para habilitar o controle de alterações manualmente, basta seguir o passo a passo apresenado na @git_interativo.
+
+1. **Abra a opção "tools" na barra de ferramentas**;
+
+2. **Selecione a opção "Version Control**;
+
+3. **Clique na opção "Project Setup..."**;
+
+4. **Uma janela se abrirá automaticamente, abra o drowpdown**;
+
+5. **Selecione a opção "Git" e clique em "ok"**;
+
+6. **Aceite a solicitação de reinicializar o RStudio**.
+
+Após a reinicialização você poderá notar o surgimento da opção "Git" (Seta verde - @fig-git_interativo) no painel *Environment* (canto superior direito). Isto indica o sucesso do processo de habilitação do controle de alterações.
+
+```{r fig-git_interativo, fig.align="center", echo=FALSE, fig.cap= "Habilitação do Git em projetos criados."}
+knitr::include_graphics("imagens/10_git.png")
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
